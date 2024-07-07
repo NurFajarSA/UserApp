@@ -9,10 +9,12 @@ const RegisterForm: React.FC = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
     const [alertMessage, setAlertMessage] = useState('');
 
-    const showAlertMessage = (message: string) => {
+    const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
         setShowAlert(true);
+        setAlertType(type);
         setAlertMessage(message);
         setTimeout(() => setShowAlert(false), 3000);
     };
@@ -26,7 +28,10 @@ const RegisterForm: React.FC = () => {
         console.log('Password:', password);
         console.log('Confirm Password:', confirmPassword);
 
-        router.push('/login');
+        showAlertMessage('Registrasi berhasil', 'success');
+        setTimeout(() => {
+            router.push('/login');
+        }, 1500);
     };
 
     const validateForm = () => {
@@ -47,13 +52,11 @@ const RegisterForm: React.FC = () => {
             return false;
         }
         return true;
-    }
-
-
+    };
 
     return (
         <>
-            {showAlert && <Alert type="error" message={alertMessage} />}
+            {showAlert && <Alert type={alertType} message={alertMessage} />}
             <form className="card-body" onSubmit={handleRegister}>
                 <div className="form-control">
                     <label className="label">

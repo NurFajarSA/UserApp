@@ -7,10 +7,12 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
   const [alertMessage, setAlertMessage] = useState('');
 
-  const showAlertMessage = (message: string) => {
+  const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
     setShowAlert(true);
+    setAlertType(type);
     setAlertMessage(message);
     setTimeout(() => setShowAlert(false), 3000);
   };
@@ -20,7 +22,11 @@ const LoginForm: React.FC = () => {
     if (!validateForm()) return;
     console.log('Email:', email);
     console.log('Password:', password);
-    router.push('/dashboard');
+    
+    showAlertMessage('Login berhasil', 'success');
+    setTimeout(() => {
+      router.push('/');
+    }, 1500);
   };
 
   const validateForm = () => {
@@ -37,7 +43,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      {showAlert && <Alert type="error" message={alertMessage} />}
+      {showAlert && <Alert type={alertType} message={alertMessage} />}
       <form className="card-body" onSubmit={handleLogin}>
         <div className="form-control">
           <label className="label">
