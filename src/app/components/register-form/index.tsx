@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Alert from '../alert';
+import Alert from '../common/alert';
+import Link from 'next/link';
 
 const RegisterForm: React.FC = () => {
     const router = useRouter();
@@ -115,7 +116,7 @@ const RegisterForm: React.FC = () => {
                 </div>
                 <div className="divider">Sudah punya akun?</div>
                 <div className="form-control">
-                    <a href="/login" className="btn btn-outline btn-primary">Masuk</a>
+                    <Link href="/login" className="btn btn-outline btn-primary">Masuk</Link>
                 </div>
             </form>
         </>

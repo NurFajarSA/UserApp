@@ -67,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li><a>Profile</a></li>
+                        <li><Link href="/profile">Profile</Link></li>
                         <li><a className='text-error' onClick={handleLogout}>Logout</a></li>
                     </ul>
                 </div>

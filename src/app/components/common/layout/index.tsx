@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Footer from '../footer';
 import Navbar from '../navbar';
 import Drawer from '../drawer';
+import Link from 'next/link';
 
 interface LayoutProps {
     title?: string;
@@ -25,12 +26,20 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({ title, children }) =
             </Head>
             <Drawer sidebarContent={
                 <>
-                    <li><a>Dashboard</a></li>
-                    <li><a>User Data</a></li>
+                    <li><Link href="/dashboard">Dashboard</Link></li>
+                    <li><Link href="/apps/users">User Data</Link></li>
                 </>
             } isOpen={isDrawerOpen}>
                 <Navbar toggleDrawer={toggleDrawer} />
-                {children}
+                <div className="p-6 min-h-standard bg-base-200">
+                    <div className="flex flex-col gap-4">
+                        <div className="col-span-1 xl:col-span-9">
+                            <h3 className="text-lg font-medium">{title}</h3>
+                        </div>
+                        {children}
+
+                    </div>
+                </div>
             </Drawer>
             <Footer />
         </div>
