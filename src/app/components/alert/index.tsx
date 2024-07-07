@@ -106,9 +106,9 @@ const Alert: React.FC<AlertProps> = ({ type, message, duration = 3000 }) => {
   };
 
   return (
-    <div className={`fixed max-w-md bottom-4 right-4 ${getAlertClass()} flex items-center p-4 rounded shadow-lg`}>
+    <div className={`fixed max-w-md w-auto bottom-4 right-4 ${getAlertClass()} flex items-center p-4 rounded shadow-lg`}>
       {getIcon()}
-      <span className="ml-3">{message}</span>
+      <span className="ml-3 pr-4">{message}</span>
     </div>
   );
 };
