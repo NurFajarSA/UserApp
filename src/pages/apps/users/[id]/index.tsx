@@ -1,6 +1,7 @@
 import Layout from "@/app/components/common/layout";
+import withAuth from "@/app/utils/withAuth";
 
-export default function UserDetailPage() {
+function UserDetailPage() {
     return (
         <main>
             <Layout title="User Detail">
@@ -9,3 +10,5 @@ export default function UserDetailPage() {
         </main>
     );
 }
+
+export default withAuth(UserDetailPage);

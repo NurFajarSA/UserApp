@@ -1,6 +1,7 @@
 import Layout from "@/app/components/common/layout";
+import withAuth from "@/app/utils/withAuth";
 
-export default function DashboardPage() {
+function DashboardPage() {
     return (
         <main>
             <Layout title="Dashboard">
@@ -9,3 +10,5 @@ export default function DashboardPage() {
         </main>
     );
 }
+
+export default withAuth(DashboardPage);

@@ -1,7 +1,8 @@
 import Layout from "@/app/components/common/layout";
 import ProfileDetailForm from "@/app/components/profile-form-detail";
+import withAuth from "@/app/utils/withAuth";
 
-export default function ProfilePage() {
+function ProfilePage() {
     return (
         <main>
             <Layout title="Profile">
@@ -13,3 +14,5 @@ export default function ProfilePage() {
         </main>
     );
 }
+
+export default withAuth(ProfilePage);

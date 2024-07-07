@@ -1,6 +1,7 @@
 import Layout from "@/app/components/common/layout";
+import withAuth from "@/app/utils/withAuth";
 
-export default function UsersPage() {
+function UsersPage() {
     return (
         <main>
             <Layout title="User Data">
@@ -9,3 +10,5 @@ export default function UsersPage() {
         </main>
     );
 }
+
+export default withAuth(UsersPage);

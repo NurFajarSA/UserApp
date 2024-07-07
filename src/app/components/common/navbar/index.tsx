@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import Alert from '../alert';
+import { useRouter } from 'next/router';
 
 interface NavbarProps {
     toggleDrawer: () => void;
@@ -7,19 +9,36 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
     const [modal, setModal]: any = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
+    const [alertMessage, setAlertMessage] = useState('');
+    const router = useRouter();
+
+    const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
+        setShowAlert(true);
+        setAlertType(type);
+        setAlertMessage(message);
+        setTimeout(() => setShowAlert(false), 3000);
+    };
+
     const handleLogout = () => {
         modal.showModal()
     }
     const logout = () => {
         modal.close();
-        window.location.href = "/";
+        showAlertMessage('Logout berhasil', 'success');
+        setTimeout(() => {
+            router.push('/login');
+        }, 1500);
     }
+
 
     useEffect(() => {
         setModal(document.getElementById('my_modal'));
     }, [])
 
     return (<>
+        {showAlert && <Alert type={alertType} message={alertMessage} />}
         <dialog id="my_modal" className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Logout</h3>
@@ -27,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
                 <div className="modal-action">
                     <form method="dialog" className='space-x-4'>
                         <button className="btn px-8">Batal</button>
-                        <Link href="/"><button className="btn btn-error px-6" onClick={logout}>Keluar</button></Link>
+                        <button className="btn btn-error px-6" onClick={logout}>Keluar</button>
                     </form>
                 </div>
             </div>
