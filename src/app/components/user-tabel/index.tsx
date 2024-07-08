@@ -88,9 +88,7 @@ const UserTable: React.FC = () => {
                     {isLoading && (
                         <tr>
                             <td colSpan={9}>
-                                <div className="spinner-container">
-                                    <div className="spinner"></div>
-                                </div>
+                                <span className="loading loading-spinner loading-md"></span>
                             </td>
                         </tr>
                     )}

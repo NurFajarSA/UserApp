@@ -5,7 +5,7 @@ function DashboardPage() {
     return (
         <main>
             <Layout title="Dashboard">
-                <div className="min-h-standard bg-white shadow-md rounded-md" />
+                <div className="my-card min-h-standard" />
             </Layout>
         </main>
     );

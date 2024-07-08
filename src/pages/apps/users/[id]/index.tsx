@@ -1,11 +1,13 @@
 import Layout from "@/app/components/common/layout";
+import UserProfile from "@/app/components/user-profile";
+import dummyData from "@/app/utils/dummyData";
 import withAuth from "@/app/utils/withAuth";
 
 function UserDetailPage() {
     return (
         <main>
             <Layout title="User Detail">
-                <div className="min-h-standard bg-white shadow-md rounded-md" />
+                <UserProfile user={dummyData[0]} />
             </Layout>
         </main>
     );

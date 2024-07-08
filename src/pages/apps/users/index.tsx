@@ -6,7 +6,7 @@ function UsersPage() {
     return (
         <main>
             <Layout title="User Data">
-                <div className="min-h-standard bg-white shadow-md rounded-md p-6" >
+                <div className="my-card min-h-standard" >
                     <UserTable />
                 </div>
             </Layout>
