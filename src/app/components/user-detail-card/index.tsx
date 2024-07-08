@@ -9,7 +9,6 @@ const UserDetailCard: React.FC<UserDetailCardProps> = ({ user }) => {
 
     return (
         <div className="my-card">
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"></link>
             <div className="flex flex-col gap-4 sm:grid sm:grid-cols-1 md:grid md:grid-cols-2 w-full">
                 <div className="flex text-sm text-gray-600">
                     <span className="material-icons-outlined mr-2">person</span>

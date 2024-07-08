@@ -1,6 +1,6 @@
 import RegisterForm from "@/app/components/register-form";
 
-export default function LandingPage() {
+export default function RegisterPage() {
   return (
     <main>
       <title>User App</title>
