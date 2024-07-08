@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Alert from '../alert';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 interface NavbarProps {
     toggleDrawer: () => void;
@@ -68,9 +69,6 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
                     </svg>
                 </label>
             </div>
-            <div className="navbar-center">
-                <a className="btn btn-ghost text-xl">Selamat Datang</a>
-            </div>
             <div className="navbar-end">
 
                 <span className="badge badge-l badge-info center p-3 m-2">Admin</span>
@@ -78,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img
+                            <Image
                                 alt="Tailwind CSS Navbar component"
                                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                         </div>
