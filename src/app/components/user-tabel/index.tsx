@@ -1,3 +1,4 @@
+import { Role } from '@/app/models/Role';
 import { User } from '@/app/models/User';
 import dummyData from '@/app/utils/dummyData';
 import { useRouter } from 'next/router';
@@ -60,16 +61,26 @@ const UserTable: React.FC = () => {
         setCurrentPage(1);
     };
 
+    const handleAddUser = () => {
+        router.push('/apps/users/add');
+    }
+
 
     return (
         <div className="overflow-x-auto">
-            <input
-                type="text"
-                className="input input-bordered input-sm w-full max-w-xs m-1 mb-2"
-                placeholder="Search by username..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-            />
+            <div className="flex flex-row justify-between">
+                <input
+                    type="text"
+                    className="input input-bordered input-sm w-full max-w-xs m-1 mb-2"
+                    placeholder="Search by username..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+                <button className="btn btn-sm m-1 mb-2" onClick={handleAddUser}>
+                    <span className="material-icons-outlined">add</span>
+                    Tambah Pengguna
+                </button>
+            </div>
             <table className="table table-zebra text-center">
                 <thead>
                     <tr>
@@ -98,7 +109,7 @@ const UserTable: React.FC = () => {
                             <td className="nowrap">{user.email}</td>
                             <td className="nowrap">{user.username}</td>
                             <td className="nowrap">
-                                <span className={`badge badge-l ${user.role == 'admin' ? 'badge-info' : 'badge-warning'} center p-2.5`}>
+                                <span className={`badge badge-l ${user.role == Role.ADMIN ? 'badge-info' : 'badge-warning'} center p-2.5`}>
                                     {user.role}
                                 </span>
                             </td>

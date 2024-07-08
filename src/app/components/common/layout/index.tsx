@@ -31,7 +31,7 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({ title, children }) =
             <Drawer sidebarContent={
                 <>
                     <li><Link href="/dashboard">Dashboard</Link></li>
-                    {role === Role.ADMIN && <li><Link href="/apps/users">User Data</Link></li>}
+                    {role === Role.ADMIN && <li><Link href="/apps/users">Data Pengguna</Link></li>}
                 </>
             } isOpen={isDrawerOpen}>
                 <Navbar toggleDrawer={toggleDrawer} />
@@ -45,7 +45,7 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({ title, children }) =
                                 <ul>
                                     <li><Link href="/">Home</Link></li>
                                     {title === "Dashboard" || title === "Profile" ? null : <li><Link href="/dashboard">Dashboard</Link></li>}
-                                    {title === "User Data" || title === "Dashboard" || title === "Profile" ? null : <li><Link href="/apps/users">User Data</Link></li>}
+                                    {title === "Data Pengguna" || title === "Dashboard" || title === "Profile" ? null : <li><Link href="/apps/users">Data Pengguna</Link></li>}
                                     <li>{title}</li>
                                 </ul>
                             </div>

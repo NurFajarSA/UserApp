@@ -17,7 +17,7 @@ function UsersPage() {
 
     return (
         <main>
-            <Layout title="User Data">
+            <Layout title="Data Pengguna">
                 <div className="my-card min-h-standard" >
                     <UserTable />
                 </div>

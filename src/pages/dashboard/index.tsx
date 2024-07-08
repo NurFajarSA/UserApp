@@ -15,7 +15,7 @@ function DashboardPage() {
         return (
             <main>
                 <Layout title="Dashboard">
-                    <div className="flex flex-col md:grid md:grid-cols-3 gap-4">
+                    <div className="flex flex-col md:grid md:grid-cols-3 gap-4 min-h-standard">
                         <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
                             <div>
                                 <h3 className="text-md font-medium">Jumlah Pengguna</h3>

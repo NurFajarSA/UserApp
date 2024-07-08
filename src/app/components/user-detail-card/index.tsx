@@ -1,3 +1,4 @@
+import { Role } from "@/app/models/Role";
 import { User } from "@/app/models/User";
 import React from 'react';
 
@@ -23,7 +24,7 @@ const UserDetailCard: React.FC<UserDetailCardProps> = ({ user }) => {
                 <div className="flex items-center text-sm text-gray-600">
                     <span className="material-icons-outlined mr-2">badge</span>
                     <span className="w-1/3 font-semibold">Role</span>
-                    <span className="w-2/3">: <span className={`badge badge-l ${user.role == 'admin' ? 'badge-info' : 'badge-warning'} center p-2.5`}>
+                    <span className="w-2/3">: <span className={`badge badge-l ${user.role == Role.ADMIN ? 'badge-info' : 'badge-warning'} center p-2.5`}>
                         {user.role}</span>
                     </span>
                 </div>
