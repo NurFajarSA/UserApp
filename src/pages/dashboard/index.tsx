@@ -16,21 +16,21 @@ function DashboardPage() {
             <main>
                 <Layout title="Dashboard">
                     <div className="flex flex-col md:grid md:grid-cols-3 gap-4 min-h-standard">
-                        <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div className="my-card flex items-center justify-between">
                             <div>
                                 <h3 className="text-md font-medium">Jumlah Pengguna</h3>
                                 <p className="text-4xl font-bold text-gray-800">10</p>
                             </div>
                             <span className="material-icons-outlined text-4xl text-gray-800 mr-4">people</span>
                         </div>
-                        <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div className="my-card flex items-center justify-between">
                             <div>
                                 <h3 className="text-md font-medium">Jumlah Admin</h3>
                                 <p className="text-4xl font-bold text-gray-800">10</p>
                             </div>
                             <span className="material-icons-outlined text-4xl text-gray-800 mr-4">admin_panel_settings</span>
                         </div>
-                        <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div className="my-card flex items-center justify-between">
                             <div>
                                 <h3 className="text-md font-medium">Total Percobaan Login</h3>
                                 <p className="text-4xl font-bold text-gray-800">10</p>
