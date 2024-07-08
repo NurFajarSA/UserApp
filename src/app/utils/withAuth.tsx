@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { getToken } from './cookies';
-// import { useAuth } from '../hooks/useAuth'; // Assume useAuth provides authentication state
 
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
     const Wrapper = (props: any) => {

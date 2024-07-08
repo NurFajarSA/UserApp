@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Alert from '../common/alert';
-import Link from 'next/link';
+import { Role } from '@/app/models/Role';
+import Alert from '../../common/alert';
 
-const RegisterForm: React.FC = () => {
+const AdminRegisterForm: React.FC = () => {
     const router = useRouter();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [role, setRole] = useState(Role.USER);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showAlert, setShowAlert] = useState(false);
@@ -31,7 +32,7 @@ const RegisterForm: React.FC = () => {
 
         showAlertMessage('Registrasi berhasil', 'success');
         setTimeout(() => {
-            router.push('/login');
+            router.replace('/apps/users');
         }, 1500);
     };
 
@@ -87,6 +88,20 @@ const RegisterForm: React.FC = () => {
                 </div>
                 <div className="form-control">
                     <label className="label">
+                        <span className="label-text">Role</span>
+                    </label>
+                    <select
+                        className="select select-bordered"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value as Role)}
+                        required
+                    >
+                        <option value={Role.USER}>User</option>
+                        <option value={Role.ADMIN}>Admin</option>
+                    </select>
+                </div>
+                <div className="form-control">
+                    <label className="label">
                         <span className="label-text">Password</span>
                     </label>
                     <input
@@ -114,13 +129,9 @@ const RegisterForm: React.FC = () => {
                 <div className="form-control mt-6">
                     <button className="btn btn-primary" type="submit">Daftar</button>
                 </div>
-                <div className="divider">Sudah punya akun?</div>
-                <div className="form-control">
-                    <Link href="/login" className="btn btn-outline btn-primary">Masuk</Link>
-                </div>
             </form>
         </>
     );
 };
 
-export default RegisterForm;
+export default AdminRegisterForm;

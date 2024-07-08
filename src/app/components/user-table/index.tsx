@@ -103,6 +103,11 @@ const UserTable: React.FC = () => {
                             </td>
                         </tr>
                     )}
+                    {currentUsers.length === 0 && !isLoading && (
+                        <tr>
+                            <td colSpan={9}>Tidak ada data pengguna yang ditemukan</td>
+                        </tr>
+                    )}
                     {currentUsers.map((user, index) => (
                         <tr key={index}>
                             <th>{index + 1 + (currentPage - 1) * usersPerPage}</th>

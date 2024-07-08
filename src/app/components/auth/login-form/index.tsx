@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Alert from '../common/alert';
+import Alert from '../../common/alert';
 import Link from 'next/link';
 
 const LoginForm: React.FC = () => {

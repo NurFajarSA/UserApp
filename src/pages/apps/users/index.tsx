@@ -1,5 +1,5 @@
 import Layout from "@/app/components/common/layout";
-import UserTable from "@/app/components/user-tabel";
+import UserTable from "@/app/components/user-table";
 import { Role } from "@/app/models/Role";
 import { getUserRole } from "@/app/utils/cookies";
 import withAuth from "@/app/utils/withAuth";

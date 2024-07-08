@@ -1,5 +1,5 @@
+import AdminRegisterForm from "@/app/components/auth/register-form/admin";
 import Layout from "@/app/components/common/layout";
-import AdminRegisterForm from "@/app/components/register-form/admin";
 
 function AddUser() {
     return (

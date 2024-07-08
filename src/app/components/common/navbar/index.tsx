@@ -11,7 +11,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
     const [modal, setModal]: any = useState(null);
     const [showAlert, setShowAlert] = useState(false);
-    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); 
     const [alertMessage, setAlertMessage] = useState('');
     const router = useRouter();
 
@@ -78,12 +78,14 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
                         <div className="w-10 rounded-full">
                             <Image
                                 alt="Tailwind CSS Navbar component"
+                                width={40}
+                                height={40}
                                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                         </div>
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-md z-[1] mt-3 w-52 p-2 shadow">
                         <li><Link href="/profile">Profile</Link></li>
                         <li><a className='text-error' onClick={handleLogout}>Logout</a></li>
                     </ul>
