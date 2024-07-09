@@ -1,5 +1,6 @@
 import AdminRegisterForm from "@/app/components/auth/register-form/admin";
 import Layout from "@/app/components/common/layout";
+import withAuth from "@/app/utils/withAuth";
 
 function AddUser() {
     return (
@@ -13,4 +14,4 @@ function AddUser() {
     );
 }
 
-export default AddUser;
+export default withAuth(AddUser);
