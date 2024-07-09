@@ -1,10 +1,9 @@
-import { Role } from "./Role";
+import { Role } from "./role";
 
 export interface User {
     id: string
     email: string;
     username: string;
-    password: string;
     role: Role;
     dateCreate: string;
     dateUpdate: string;

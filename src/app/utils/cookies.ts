@@ -1,44 +1,52 @@
-import { Role } from "../models/Role";
+import { Role } from "../models/role";
+import Cookies from 'js-cookie';
 
 const TOKEN_NAME = 'token';
 const USER_ID = 'user_id';
 const ROLE_NAME = 'role';
 
+export const isAuthenticated = () => {
+    return Cookies.get(TOKEN_NAME) !== undefined;
+}
 
+export const handleLogin = (token: string, role: Role, userId: string) => {
+    Cookies.set(TOKEN_NAME, token);
+    Cookies.set(ROLE_NAME, role);
+    Cookies.set(USER_ID, userId);
+}
 
 export const getToken = () => {
-    // return localStorage.getItem(TOKEN_NAME);
-    return "token"
+    return Cookies.get(TOKEN_NAME);
 }
 
 export const setToken = (token: string) => {
-    // localStorage.setItem(TOKEN_NAME, token);
+    Cookies.set(TOKEN_NAME, token);
 }
 
 export const removeToken = () => {
-    // localStorage.removeItem(TOKEN_NAME);
+    Cookies.remove(TOKEN_NAME);
 }
 
 export const getUserRole = () => {
-    return Role.ADMIN;
+    return Cookies.get(ROLE_NAME);
 }
 
 export const setUserRole = (role: Role) => {
-    // localStorage.setItem(ROLE_NAME, role);
+    Cookies.set(ROLE_NAME, role);
 }
 
 export const removeUserRole = () => {
-    // localStorage.removeItem(ROLE_NAME);
+    Cookies.remove(ROLE_NAME);
 }
 
 export const getUserId = () => {
-    return "1";
+    return Cookies.get(USER_ID);
 }
 
 export const setUserId = (userId: string) => {
-    // localStorage.setItem(USER_ID, userId);
+    Cookies.set(USER_ID, userId);
 }
 
 export const removeUserId = () => {
-    // localStorage.removeItem(USER_ID);
+    Cookies.remove(USER_ID);
 }

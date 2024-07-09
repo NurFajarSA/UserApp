@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Alert from '../../common/alert';
 import { Routes } from '@/app/routes/routes';
+import { register } from '@/app/services/authService';
+import { Role } from '@/app/models/role';
 
 const RegisterForm: React.FC = () => {
     const router = useRouter();
@@ -21,19 +23,31 @@ const RegisterForm: React.FC = () => {
         setTimeout(() => setShowAlert(false), 3000);
     };
 
-    const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!validateForm()) return;
+        try {
+            const role = Role.USER;
+            const response = await register({
+                username,
+                email,
+                password,
+                role
+            });
 
-        console.log('Username:', username);
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Confirm Password:', confirmPassword);
+            if (response) {
+                showAlertMessage('Registrasi berhasil', 'success');
+                setTimeout(() => {
+                    router.push(Routes.LOGIN);
+                }, 1500);
+            }
+        } catch (error : any) {
+            showAlertMessage(error, 'error');
+        }
 
-        showAlertMessage('Registrasi berhasil', 'success');
-        setTimeout(() => {
-            router.push(Routes.LOGIN);
-        }, 1500);
+
+
+
     };
 
     const validateForm = () => {

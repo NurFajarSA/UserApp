@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Alert from '../../common/alert';
 import Link from 'next/link';
 import { Routes } from '@/app/routes/routes';
+import { login } from '@/app/services/authService';
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
@@ -19,16 +20,25 @@ const LoginForm: React.FC = () => {
     setTimeout(() => setShowAlert(false), 3000);
   };
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateForm()) return;
-    console.log('Email:', email);
-    console.log('Password:', password);
-    
-    showAlertMessage('Login berhasil', 'success');
-    setTimeout(() => {
-      router.replace(Routes.DASHBOARD);
-    }, 1500);
+    try {
+      const response = await login({
+        email,
+        password
+      });
+
+      if (response) {
+        showAlertMessage('Login berhasil', 'success');
+        setTimeout(() => {
+          router.replace(Routes.DASHBOARD);
+        }, 1500);
+      }
+
+    } catch (error: any) {
+      showAlertMessage(error, 'error');
+    }
   };
 
   const validateForm = () => {
