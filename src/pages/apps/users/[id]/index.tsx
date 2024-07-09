@@ -55,7 +55,7 @@ function UserDetailPage() {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [fetchData()]);
 
     return (
         <main>
