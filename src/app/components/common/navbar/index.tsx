@@ -28,6 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
     }
     const logout = () => {
         modal.close();
+        handleLogout();
         showAlertMessage('Logout berhasil', 'success');
         setTimeout(() => {
             router.replace(Routes.LOGIN);

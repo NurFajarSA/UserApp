@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { updateUsername } from "@/app/services/userService";
+import { useEffect, useState } from "react";
+import Alert from "../common/alert";
 
 interface UsernameFormProps {
     username: string;
@@ -6,11 +8,39 @@ interface UsernameFormProps {
 
 const UsernameForm: React.FC<UsernameFormProps> = ({ username }) => {
     const [newUsername, setNewUsername] = useState(username);
+    const [loading, setLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
+    const [alertMessage, setAlertMessage] = useState('');
 
-    return (
+    const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
+        setShowAlert(true);
+        setAlertType(type);
+        setAlertMessage(message);
+        setTimeout(() => setShowAlert(false), 3000);
+    };
+
+    const handleUpdateUsername = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const response = await updateUsername(username);
+            if (response) {
+                showAlertMessage('Username berhasil diubah', 'success');
+                setNewUsername(response.username);
+            }
+        } catch (error: any) {
+            showAlertMessage(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (<>
+        {showAlert && <Alert type={alertType} message={alertMessage} />}
         <div className="flex flex-col gap-4 my-card">
             <div className="text-md font-medium">Ubah Username</div>
-            <form className="flex justify-between">
+            <form className="flex justify-between" onSubmit={handleUpdateUsername}>
                 <label className="input input-bordered flex items-center gap-2 w-3/4 mr-6">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -29,10 +59,12 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ username }) => {
                         }}
                     />
                 </label>
-                {newUsername !== username && (<button className="btn btn-primary w-1/4" type="submit">Ubah</button>)}
-                {newUsername === username && (<button className="btn btn-primary w-1/4" type="submit" disabled>Ubah</button>)}
+                {!loading && newUsername !== username && (<button className="btn btn-primary w-1/4" type="submit">Ubah</button>)}
+                {!loading && newUsername === username && (<button className="btn btn-primary w-1/4" type="submit" disabled>Ubah</button>)}
+                {loading && <button className="btn btn-primary w-1/4" type="button" disabled><span className="loading loading-spinner loading-md"></span></button>}
             </form>
         </div>
+    </>
     );
 }
 

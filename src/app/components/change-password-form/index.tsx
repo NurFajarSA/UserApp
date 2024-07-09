@@ -1,17 +1,43 @@
+import { changePassword } from "@/app/services/userService";
 import { useEffect, useState } from "react";
+import Alert from "../common/alert";
 
 const ChangePasswordForm: React.FC = () => {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
+    const [alertMessage, setAlertMessage] = useState('');
 
-    const handleChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
+    const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
+        setShowAlert(true);
+        setAlertType(type);
+        setAlertMessage(message);
+        setTimeout(() => setShowAlert(false), 3000);
+    };
+
+    const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Old Password:", oldPassword);
-        console.log("New Password:", newPassword);
+        setLoading(true);
+        try {
+            const response = await changePassword(oldPassword, newPassword);
+            if (response) {
+                showAlertMessage('Password berhasil diubah', 'success');
+                setOldPassword("");
+                setNewPassword("");
+                setConfirmPassword("");
+            }
+        } catch (error: any) {
+            showAlertMessage(error);
+        } finally {
+            setLoading(false);
+        }
     }
 
-    return (
+    return (<>
+        {showAlert && <Alert type={alertType} message={alertMessage} />}
         <div className="flex flex-col gap-4 my-card">
             <div className="text-md font-medium">Ubah Password</div>
             <form className="flex justify-between items-end" onSubmit={handleChangePassword}>
@@ -77,14 +103,20 @@ const ChangePasswordForm: React.FC = () => {
                         />
                     </label>
                 </div>
-                {newPassword !== "" && confirmPassword !== "" && newPassword === confirmPassword && (
+                {!loading && newPassword !== "" && confirmPassword !== "" && newPassword === confirmPassword && (
                     <button className="btn btn-primary w-1/4" type="submit">Ubah</button>
                 )}
-                {(newPassword === "" || confirmPassword === "" || newPassword !== confirmPassword) && (
+                {!loading && (newPassword === "" || confirmPassword === "" || newPassword !== confirmPassword) && (
                     <button className="btn btn-primary w-1/4" type="submit" disabled>Ubah</button>
+                )}
+                {loading && (
+                    <button className="btn btn-primary w-1/4" type="button" disabled>
+                        <span className="loading loading-spinner loading-md"></span>
+                    </button>
                 )}
             </form>
         </div>
+    </>
     );
 }
 

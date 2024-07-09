@@ -50,7 +50,7 @@ export const getTotalUsers = async () => {
     }
 }
 
-export const  getTotalLoginAttempts = async () => {
+export const getTotalLoginAttempts = async () => {
     try {
         const token = "Bearer " + getToken();
         const response = await fetch(BASE_URL + '/dashboard/total/login-attempt', {

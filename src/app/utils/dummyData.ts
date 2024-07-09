@@ -4,9 +4,9 @@ import { User } from "../models/user";
 const dummyData: User[] = [
     {
         id: '1',
-        email: 'nur.fajar11@ui.ac.id',
-        username: 'nurfajar',
-        role: Role.ADMIN,
+        email: 'dummy@dummy.com',
+        username: 'dummy',
+        role: Role.USER,
         dateCreate: '2021-08-01',
         dateUpdate: '2021-08-01',
         lastLogin: '2021-08-01',

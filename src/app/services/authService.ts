@@ -48,7 +48,7 @@ export const login = async (request: LoginRequest) => {
         const token = data.data;
         const payload = jwtDecoder(token.substring(7));
         handleLogin(token, castStringToRole(payload.groups[0]), payload.sub);
-        return data;
+        return payload.username;
     } catch (error) {
         console.error('Login error:', error);
         throw error;

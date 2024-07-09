@@ -7,7 +7,7 @@ interface UserDetailCardProps {
 }
 
 const UserDetailCard: React.FC<UserDetailCardProps> = ({ user }) => {
-
+    
     return (
         <div className="my-card">
             <div className="flex flex-col gap-4 sm:grid sm:grid-cols-1 md:grid md:grid-cols-2 w-full">

@@ -1,6 +1,7 @@
 import { Role } from '@/app/models/role';
 import { User } from '@/app/models/user';
 import { Routes } from '@/app/routes/routes';
+import { getAllUsers } from '@/app/services/userService';
 import dummyData from '@/app/utils/dummyData';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -34,10 +35,12 @@ const UserTable: React.FC = () => {
     const fetchUsers = async () => {
         setIsLoading(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setUsers(dummyData);
-            setFilteredUsers(dummyData);
-            setCurrentUsers(dummyData.slice(0, usersPerPage));
+            const response = await getAllUsers();
+            if (response) {
+                setUsers(response);
+                setFilteredUsers(response);
+                setCurrentUsers(response.slice(0, usersPerPage));
+            }
         } catch (error) {
             console.error('Error fetching users:', error);
         } finally {

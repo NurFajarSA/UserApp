@@ -11,14 +11,3 @@ export interface RegisterRequest {
     username: string;
     role: Role;
 }
-
-export interface UpdateUserRequest {
-    id: string;
-    username: string;
-}
-
-export interface ChangePasswordRequest {
-    id: string;
-    oldPassword: string;
-    newPassword: string;
-}

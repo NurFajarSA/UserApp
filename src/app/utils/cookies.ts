@@ -15,6 +15,12 @@ export const handleLogin = (token: string, role: Role, userId: string) => {
     Cookies.set(USER_ID, userId);
 }
 
+export const handleLogout = () => {
+    Cookies.remove(TOKEN_NAME);
+    Cookies.remove(ROLE_NAME);
+    Cookies.remove(USER_ID);
+}
+
 export const getToken = () => {
     return Cookies.get(TOKEN_NAME);
 }
