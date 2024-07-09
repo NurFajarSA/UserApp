@@ -1,5 +1,5 @@
 import { BASE_URL } from "../constant";
-import { castStringToRole, Role } from "../models/role";
+import { castStringToRole } from "../models/role";
 import { User } from "../models/user";
 import { handleLogin } from "../utils/cookies";
 import { jwtDecoder } from "../utils/jwtDecoder";

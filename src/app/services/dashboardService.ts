@@ -1,12 +1,15 @@
 import { BASE_URL } from "../constant";
+import { getToken } from "../utils/cookies";
 import { BaseResponse } from "./response";
 
 export const getTotalAdmins = async () => {
     try {
+        const token = "Bearer " + getToken();
         const response = await fetch(BASE_URL + '/dashboard/total/admin', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': token,
             },
         });
 
@@ -25,10 +28,12 @@ export const getTotalAdmins = async () => {
 
 export const getTotalUsers = async () => {
     try {
+        const token = "Bearer " + getToken();
         const response = await fetch(BASE_URL + '/dashboard/total/user', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': token,
             },
         });
 
@@ -47,10 +52,12 @@ export const getTotalUsers = async () => {
 
 export const  getTotalLoginAttempts = async () => {
     try {
+        const token = "Bearer " + getToken();
         const response = await fetch(BASE_URL + '/dashboard/total/login-attempt', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': token,
             },
         });
 
