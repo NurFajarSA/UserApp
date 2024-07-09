@@ -1,6 +1,6 @@
 import Layout from "@/app/components/common/layout";
 import UserProfile from "@/app/components/user-profile";
-import { Role } from "@/app/models/Role";
+import { Role } from "@/app/models/role";
 import { Routes } from "@/app/routes/routes";
 import { getUserRole } from "@/app/utils/cookies";
 import dummyData from "@/app/utils/dummyData";

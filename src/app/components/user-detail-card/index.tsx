@@ -1,5 +1,5 @@
-import { Role } from "@/app/models/Role";
-import { User } from "@/app/models/User";
+import { Role } from "@/app/models/role";
+import { User } from "@/app/models/user";
 import React from 'react';
 
 interface UserDetailCardProps {

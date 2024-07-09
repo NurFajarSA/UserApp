@@ -1,5 +1,5 @@
 import UserDetailCard from "../user-detail-card";
-import { User } from "@/app/models/User";
+import { User } from "@/app/models/user";
 import UsernameForm from "../username-form";
 import ChangePasswordForm from "../change-password-form";
 

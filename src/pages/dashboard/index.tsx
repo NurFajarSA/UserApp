@@ -2,7 +2,7 @@ import Layout from "@/app/components/common/layout";
 import { getUserRole } from "@/app/utils/cookies";
 import withAuth from "@/app/utils/withAuth";
 import dummyData from "@/app/utils/dummyData";
-import { Role } from "@/app/models/Role";
+import { Role } from "@/app/models/role";
 import UserDetailCard from "@/app/components/user-detail-card";
 import UserTable from "@/app/components/user-table";
 

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { Role } from '@/app/models/Role';
+import { Role } from '@/app/models/role';
 import Alert from '../../common/alert';
 import { Routes } from '@/app/routes/routes';
 

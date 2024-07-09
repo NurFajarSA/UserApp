@@ -5,7 +5,7 @@ import Navbar from '../navbar';
 import Drawer from '../drawer';
 import Link from 'next/link';
 import { getUserRole } from '@/app/utils/cookies';
-import { Role } from '@/app/models/Role';
+import { Role } from '@/app/models/role';
 
 interface LayoutProps {
     title?: string;
