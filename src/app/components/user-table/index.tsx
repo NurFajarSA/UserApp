@@ -4,7 +4,7 @@ import { Routes } from '@/app/routes/routes';
 import { getAllUsers } from '@/app/services/userService';
 import dummyData from '@/app/utils/dummyData';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const UserTable: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -28,7 +28,7 @@ const UserTable: React.FC = () => {
 
 
 
-    const fetchUsers = async () => {
+    const fetchUsers = useCallback(async () => {
         setIsLoading(true);
         try {
             const response = await getAllUsers();
@@ -42,11 +42,11 @@ const UserTable: React.FC = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [usersPerPage]);
 
     useEffect(() => {
         fetchUsers();
-    }, [fetchUsers()]);
+    }, [fetchUsers]);
 
     const handleDetailClick = (user: User) => {
         console.log('Clicked detail for user:', user);
@@ -57,17 +57,17 @@ const UserTable: React.FC = () => {
         setSearchTerm(event.target.value);
     };
 
-    const performSearch = () => {
+    const performSearch = useCallback(() => {
         const filtered = users.filter(user =>
             user.username.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredUsers(filtered);
         setCurrentPage(1);
-    };
+    }, [searchTerm, users]);
 
     useEffect(() => {
         performSearch();
-    }, [performSearch()]);
+    }, [performSearch]);
 
     const handleAddUser = () => {
         router.push(Routes.ADD_USER);

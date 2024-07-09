@@ -7,7 +7,7 @@ import { getUserRole } from "@/app/utils/cookies";
 import dummyData from "@/app/utils/dummyData";
 import withAuth from "@/app/utils/withAuth";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function UserDetailPage() {
     const role = getUserRole();
@@ -23,7 +23,7 @@ function UserDetailPage() {
         }
     }, [role, router]);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         setLoading(true);
         try {
             const response = await getUserById(id);
@@ -36,7 +36,7 @@ function UserDetailPage() {
             setLoading(false);
         }
 
-    };
+    }, [id]);
 
     const handleRemoveUser = async () => {
         setLoadingRemove(true);
@@ -55,7 +55,7 @@ function UserDetailPage() {
 
     useEffect(() => {
         fetchData();
-    }, [fetchData()]);
+    }, [fetchData]);
 
     return (
         <main>
