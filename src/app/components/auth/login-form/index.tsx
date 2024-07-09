@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Alert from '../../common/alert';
 import Link from 'next/link';
+import { Routes } from '@/app/routes/routes';
 
 const LoginForm: React.FC = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const LoginForm: React.FC = () => {
     
     showAlertMessage('Login berhasil', 'success');
     setTimeout(() => {
-      router.push('/');
+      router.replace(Routes.DASHBOARD);
     }, 1500);
   };
 

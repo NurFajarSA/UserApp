@@ -1,5 +1,6 @@
 import { Role } from '@/app/models/Role';
 import { User } from '@/app/models/User';
+import { Routes } from '@/app/routes/routes';
 import dummyData from '@/app/utils/dummyData';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -46,7 +47,7 @@ const UserTable: React.FC = () => {
 
     const handleDetailClick = (user: User) => {
         console.log('Clicked detail for user:', user);
-        router.push(`/apps/users/${user.id}`);
+        router.push(Routes.USER_DETAIL.replace(':id', user.id));
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +63,7 @@ const UserTable: React.FC = () => {
     };
 
     const handleAddUser = () => {
-        router.push('/apps/users/add');
+        router.push(Routes.ADD_USER);
     }
 
 

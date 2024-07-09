@@ -1,6 +1,7 @@
 import Layout from "@/app/components/common/layout";
 import UserProfile from "@/app/components/user-profile";
 import { Role } from "@/app/models/Role";
+import { Routes } from "@/app/routes/routes";
 import { getUserRole } from "@/app/utils/cookies";
 import dummyData from "@/app/utils/dummyData";
 import withAuth from "@/app/utils/withAuth";
@@ -12,7 +13,7 @@ function UserDetailPage() {
     const router = useRouter();
     useEffect(() => {
         if (role !== Role.ADMIN) {
-            router.push("/dashboard");
+            router.replace(Routes.DASHBOARD);
         }
     }, [role, router]);
 

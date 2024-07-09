@@ -1,6 +1,7 @@
 import Layout from "@/app/components/common/layout";
 import UserTable from "@/app/components/user-table";
 import { Role } from "@/app/models/Role";
+import { Routes } from "@/app/routes/routes";
 import { getUserRole } from "@/app/utils/cookies";
 import withAuth from "@/app/utils/withAuth";
 import { useRouter } from "next/router";
@@ -11,7 +12,7 @@ function UsersPage() {
     const router = useRouter();
     useEffect(() => {
         if (role !== Role.ADMIN) {
-            router.push("/dashboard");
+            router.replace(Routes.DASHBOARD);
         }
     }, [role, router]);
 

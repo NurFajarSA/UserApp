@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Alert from '../alert';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { Routes } from '@/app/routes/routes';
 
 interface NavbarProps {
     toggleDrawer: () => void;
@@ -29,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
         modal.close();
         showAlertMessage('Logout berhasil', 'success');
         setTimeout(() => {
-            router.push('/login');
+            router.replace(Routes.LOGIN);
         }, 1500);
     }
 

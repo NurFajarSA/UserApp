@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Role } from '@/app/models/Role';
 import Alert from '../../common/alert';
+import { Routes } from '@/app/routes/routes';
 
 const AdminRegisterForm: React.FC = () => {
     const router = useRouter();
@@ -32,7 +33,7 @@ const AdminRegisterForm: React.FC = () => {
 
         showAlertMessage('Registrasi berhasil', 'success');
         setTimeout(() => {
-            router.replace('/apps/users');
+            router.replace(Routes.USERS);
         }, 1500);
     };
 
