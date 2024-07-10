@@ -2,18 +2,15 @@ import Layout from "@/app/components/common/layout";
 import UserProfile from "@/app/components/user-profile";
 import { Role } from "@/app/models/role";
 import { Routes } from "@/app/routes/routes";
-import { deleteUserById, getUserById } from "@/app/services/userService";
+import { deleteUserById } from "@/app/services/userService";
 import { getUserRole } from "@/app/utils/cookies";
-import dummyData from "@/app/utils/dummyData";
 import withAuth from "@/app/utils/withAuth";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function UserDetailPage() {
     const role = getUserRole();
     const router = useRouter();
-    const [user, setUser] = useState(dummyData[0]);
-    const [loading, setLoading] = useState(false);
     const [loadingRemove, setLoadingRemove] = useState(false);
     const id = router.query.id as string;
 
@@ -23,20 +20,6 @@ function UserDetailPage() {
         }
     }, [role, router]);
 
-    const fetchData = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await getUserById(id);
-            if (response) {
-                setUser(response);
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-
-    }, [id]);
 
     const handleRemoveUser = async () => {
         setLoadingRemove(true);
@@ -53,32 +36,28 @@ function UserDetailPage() {
 
     }
 
-    useEffect(() => {
-        fetchData();
-    }, [fetchData]);
 
     return (
         <main>
             <Layout title="User Detail">
-                {loading ? (
-                    <span className="loading loading-bars loading-lg"></span>
+
+
+                <UserProfile />
+                {!loadingRemove && <div className="text-center">User not found</div>}
+                {loadingRemove ? (
+                    <button className="btn btn-error" disabled>
+                        <span className="loading loading-spinner loading-sm"></span>
+                    </button>
                 ) : (
-                    <>
-                        <UserProfile user={user} />
-                        {loadingRemove ? (
-                            <button className="btn btn-error" disabled>
-                                <span className="loading loading-spinner loading-sm"></span>
-                            </button>
-                        ) : (
-                            <button
-                                className="btn btn-error"
-                                onClick={handleRemoveUser}
-                            >
-                                Hapus Pengguna
-                            </button>
-                        )}
-                    </>
+                    <button
+                        className="btn btn-error"
+                        onClick={handleRemoveUser}
+                    >
+                        Hapus Pengguna
+                    </button>
                 )}
+
+
             </Layout>
         </main>
     );

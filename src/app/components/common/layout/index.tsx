@@ -17,7 +17,6 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({ title, children }) =
 
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
-        console.log(isDrawerOpen);
     };
 
     return (

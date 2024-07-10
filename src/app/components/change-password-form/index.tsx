@@ -8,7 +8,7 @@ const ChangePasswordForm: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); 
     const [alertMessage, setAlertMessage] = useState('');
 
     const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {

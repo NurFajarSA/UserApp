@@ -1,6 +1,6 @@
 export enum Role {
-    ADMIN = 'Admin',
-    USER = 'User'
+    ADMIN = 'ADMIN',
+    USER = 'USER'
 }
 
 export const castStringToRole = (role: string): Role => {

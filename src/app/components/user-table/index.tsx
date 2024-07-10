@@ -49,7 +49,6 @@ const UserTable: React.FC = () => {
     }, [fetchUsers]);
 
     const handleDetailClick = (user: User) => {
-        console.log('Clicked detail for user:', user);
         router.push(Routes.USER_DETAIL.replace(':id', user.id));
     };
 

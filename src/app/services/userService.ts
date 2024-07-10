@@ -54,7 +54,7 @@ export const getUserById = async (id: string) => {
 export const updateUsername = async (username: string) => {
     try {
         const token = "Bearer " + getToken();
-        const response = await fetch(BASE_URL + '/users/update/username', {
+        const response = await fetch(BASE_URL + '/users', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,6 +72,7 @@ export const updateUsername = async (username: string) => {
         }
 
         const data: BaseResponse<User> = await response.json();
+        console.log(data);
         return data.data;
     } catch (error) {
         console.error('Update username error:', error);
@@ -82,7 +83,7 @@ export const updateUsername = async (username: string) => {
 export const changePassword = async (oldPassword: string, newPassword: string) => {
     try {
         const token = "Bearer " + getToken();
-        const response = await fetch(BASE_URL + '/users/change/password', {
+        const response = await fetch(BASE_URL + '/users/change-password', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -99,9 +100,9 @@ export const changePassword = async (oldPassword: string, newPassword: string) =
             const errorResponse: BaseResponse<any> = await response.json();
             throw new Error(errorResponse.message || 'An error occurred');
         }
-
+        
         const data: BaseResponse<User> = await response.json();
-        return data.data;
+        return data;
     } catch (error) {
         console.error('Change password error:', error);
         throw error;

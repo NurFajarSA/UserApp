@@ -1,33 +1,39 @@
 import { updateUsername } from "@/app/services/userService";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Alert from "../common/alert";
+import { useRouter } from "next/router";
+import { getUsername, setUsername } from "@/app/utils/cookies";
 
-interface UsernameFormProps {
-    username: string;
-}
-
-const UsernameForm: React.FC<UsernameFormProps> = ({ username }) => {
-    const [newUsername, setNewUsername] = useState(username);
+const UsernameForm: React.FC = () => {
+    const [newUsername, setNewUsername] = useState(getUsername() || '');
     const [loading, setLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error');
     const [alertMessage, setAlertMessage] = useState('');
+    const router = useRouter();
 
     const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
         setShowAlert(true);
         setAlertType(type);
         setAlertMessage(message);
-        setTimeout(() => setShowAlert(false), 3000);
+        setTimeout(() => {
+            setShowAlert(false)
+            setAlertType('error');
+            setAlertMessage('');
+        } , 3000);
     };
 
     const handleUpdateUsername = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await updateUsername(username);
+            const response = await updateUsername(newUsername);
             if (response) {
                 showAlertMessage('Username berhasil diubah', 'success');
                 setNewUsername(response.username);
+                setUsername(response.username);
+                setLoading(false);
+                router.reload();
             }
         } catch (error: any) {
             showAlertMessage(error);
@@ -59,8 +65,8 @@ const UsernameForm: React.FC<UsernameFormProps> = ({ username }) => {
                         }}
                     />
                 </label>
-                {!loading && newUsername !== username && (<button className="btn btn-primary w-1/4" type="submit">Ubah</button>)}
-                {!loading && newUsername === username && (<button className="btn btn-primary w-1/4" type="submit" disabled>Ubah</button>)}
+                {!loading && newUsername !== getUsername() && (<button className="btn btn-primary w-1/4" type="submit">Ubah</button>)}
+                {!loading && newUsername === getUsername() && (<button className="btn btn-primary w-1/4" type="submit" disabled>Ubah</button>)}
                 {loading && <button className="btn btn-primary w-1/4" type="button" disabled><span className="loading loading-spinner loading-md"></span></button>}
             </form>
         </div>

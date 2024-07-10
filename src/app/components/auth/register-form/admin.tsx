@@ -26,11 +26,6 @@ const AdminRegisterForm: React.FC = () => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        console.log('Username:', username);
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Confirm Password:', confirmPassword);
-
         showAlertMessage('Registrasi berhasil', 'success');
         setTimeout(() => {
             router.replace(Routes.USERS);

@@ -44,10 +44,6 @@ const RegisterForm: React.FC = () => {
         } catch (error : any) {
             showAlertMessage(error, 'error');
         }
-
-
-
-
     };
 
     const validateForm = () => {

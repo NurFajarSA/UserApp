@@ -1,17 +1,43 @@
 import { Role } from "@/app/models/role";
 import { User } from "@/app/models/user";
-import React from 'react';
+import { getUserById } from "@/app/services/userService";
+import { getUserId } from "@/app/utils/cookies";
+import React, { useEffect, useState } from 'react';
 
-interface UserDetailCardProps {
-    user: User;
-}
+const UserDetailCard: React.FC = () => {
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
 
-const UserDetailCard: React.FC<UserDetailCardProps> = ({ user }) => {
-    
+    useEffect(() => {
+        const fetchUser = async () => {
+            setLoading(true);
+            try {
+                const id = getUserId() as string;
+                const response = await getUserById(id);
+                if (response) {
+                    setUser(response);
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchUser();
+    }, []);
+
+    if (loading) {
+        return <div className="flex justify-center items-center">Loading...</div>;
+    }
+
+    if (!user) {
+        return <div>Data not found</div>;
+    }
+
     return (
         <div className="my-card">
             <div className="flex flex-col gap-4 sm:grid sm:grid-cols-1 md:grid md:grid-cols-2 w-full">
-                <div className="flex text-sm text-gray-600">
+                <div className="flex items-center text-sm text-gray-600">
                     <span className="material-icons-outlined mr-2">person</span>
                     <span className="w-1/3 font-semibold">Username</span>
                     <span className="w-2/3">: {user.username}</span>
@@ -55,6 +81,7 @@ const UserDetailCard: React.FC<UserDetailCardProps> = ({ user }) => {
                 </div>
             </div>
         </div>
+
     );
 }
 

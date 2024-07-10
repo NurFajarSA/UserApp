@@ -1,7 +1,6 @@
 import Layout from "@/app/components/common/layout";
 import { getUserRole } from "@/app/utils/cookies";
 import withAuth from "@/app/utils/withAuth";
-import dummyData from "@/app/utils/dummyData";
 import { Role } from "@/app/models/role";
 import UserDetailCard from "@/app/components/user-detail-card";
 import UserTable from "@/app/components/user-table";
@@ -12,26 +11,22 @@ function DashboardPage() {
     const userRole = getUserRole();
     if (userRole === Role.ADMIN) {
         return (
-            <main>
-                <Layout title="Dashboard">
-                    <div className="flex flex-col md:grid md:grid-cols-3 gap-4 min-h-standard">
-                        <StatisticCard />
-                        <div className="my-card col-span-3">
-                            <UserTable />
-                        </div>
+            <Layout title="Dashboard">
+                <div className="flex flex-col md:grid md:grid-cols-3 gap-4 min-h-standard">
+                    <StatisticCard />
+                    <div className="my-card col-span-3">
+                        <UserTable />
                     </div>
-                </Layout>
-            </main>
+                </div>
+            </Layout>
         );
     } else {
         return (
-            <main>
-                <Layout title="Dashboard">
-                    <div className="min-h-standard">
-                        <UserDetailCard user={dummyData[0]} />
-                    </div>
-                </Layout>
-            </main>
+            <Layout title="Dashboard">
+                <div className="min-h-standard">
+                    <UserDetailCard />
+                </div>
+            </Layout>
         );
     }
 
@@ -61,7 +56,6 @@ const StatisticCard = () => {
             setTotalLoginAttempt(totalLoginAttempt);
         } catch (error) {
             setError(true);
-            console.error('Fetch data error:', error);
         } finally {
             setLoading(false);
         }
