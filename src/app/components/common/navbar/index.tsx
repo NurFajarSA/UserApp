@@ -4,6 +4,8 @@ import Alert from '../alert';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Routes } from '@/app/routes/routes';
+import { getUserRole } from '@/app/utils/cookies';
+import { Role } from '@/app/models/role';
 
 interface NavbarProps {
     toggleDrawer: () => void;
@@ -73,7 +75,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
             </div>
             <div className="navbar-end">
 
-                <span className="badge badge-l badge-info center p-3 m-2">Admin</span>
+            <span className={`badge badge-l ${ getUserRole() == Role.ADMIN ? 'badge-info' : 'badge-warning'} center p-2.5`}>
+                {getUserRole()}
+            </span>
 
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">

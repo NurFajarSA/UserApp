@@ -8,7 +8,6 @@ interface DrawerProps {
 const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({ sidebarContent, children, isOpen }) => {
     const [isLargeScreen, setIsLargeScreen] = useState<boolean>(false);
     const drawerClass = isOpen ? 'drawer lg:drawer-open' : '';
-    console.log('Drawer is open:', isOpen);
 
     useEffect(() => {
         const handleResize = () => {

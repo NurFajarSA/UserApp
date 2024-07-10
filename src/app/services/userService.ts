@@ -72,7 +72,6 @@ export const updateUsername = async (username: string) => {
         }
 
         const data: BaseResponse<User> = await response.json();
-        console.log(data);
         return data.data;
     } catch (error) {
         console.error('Update username error:', error);
