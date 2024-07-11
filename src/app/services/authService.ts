@@ -8,6 +8,7 @@ import { BaseResponse } from "./response";
 
 export const register = async (request: RegisterRequest) => {
     try {
+        console.log(request)
         const response = await fetch(BASE_URL + '/auth/register', {
             method: 'POST',
             headers: {
@@ -16,13 +17,14 @@ export const register = async (request: RegisterRequest) => {
             body: JSON.stringify(request),
         });
 
+
         if (!response.ok) {
             const errorResponse: BaseResponse<any> = await response.json();
             throw new Error(errorResponse.message || 'An error occurred');
         }
 
         const data: BaseResponse<User> = await response.json();
-        return data.data;
+        return data;
     } catch (error) {
         console.error('Register error:', error);
         throw error;

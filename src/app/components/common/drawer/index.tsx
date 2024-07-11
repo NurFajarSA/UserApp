@@ -35,8 +35,7 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({ sidebarContent, chil
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 )}
                 <ul className="menu bg-base-100 text-base-content min-h-full w-60 p-4">
-                    <a className="btn btn-ghost text-xl">UserApp</a>
-                    <br />
+                    <a className="btn btn-ghost text-xl mb-4">UserApp</a>
                     {sidebarContent}
                 </ul>
             </div>

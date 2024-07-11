@@ -17,10 +17,11 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
     const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error');
     const [alertMessage, setAlertMessage] = useState('');
     const router = useRouter();
-    const role = getUserRole();
+    const [role, setRole] = useState<string>();
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setRole(getUserRole());
         setIsMounted(true);
     }, []);
 

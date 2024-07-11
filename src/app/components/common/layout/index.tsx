@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import Head from 'next/head';
 import Footer from '../footer';
 import Navbar from '../navbar';
@@ -13,7 +13,11 @@ interface LayoutProps {
 
 const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({ title, children }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(true);
-    const role = getUserRole();
+    const [role, setRole] = useState<string>();
+
+    useEffect(() => {
+        setRole(getUserRole());
+    }, []);
 
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);

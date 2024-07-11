@@ -4,9 +4,12 @@ import Alert from "../common/alert";
 import { useRouter } from "next/router";
 import { getUsername, setUsername } from "@/app/utils/cookies";
 
-const UsernameForm: React.FC = () => {
-    const oldUsername = getUsername();
-    const [newUsername, setNewUsername] = useState(getUsername() || '');
+interface UsernameFormProps {
+    id: string;
+}
+
+const UsernameForm: React.FC<UsernameFormProps> = ({ id }) => {
+    const [newUsername, setNewUsername] = useState<string>("");
     const [loading, setLoading] = useState(true);
     const [showAlert, setShowAlert] = useState(false);
     const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error');
@@ -31,8 +34,13 @@ const UsernameForm: React.FC = () => {
     const handleUpdateUsername = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
+        if (!newUsername) {
+            showAlertMessage('Username tidak boleh kosong');
+            setLoading(false);
+            return;
+        }
         try {
-            const response = await updateUsername(newUsername);
+            const response = await updateUsername(newUsername, id);
             if (response) {
                 showAlertMessage('Username berhasil diubah', 'success');
                 setNewUsername(response.username);
@@ -70,9 +78,9 @@ const UsernameForm: React.FC = () => {
                         }}
                     />
                 </label>
-                {!loading && newUsername !== oldUsername && (<button className="btn btn-primary w-1/4" type="submit">Ubah</button>)}
-                {!loading && newUsername === oldUsername && (<button className="btn btn-primary w-1/4" type="submit" disabled>Ubah</button>)}
+                {!loading && newUsername !== "" &&(<button className="btn btn-primary w-1/4" type="submit">Ubah</button>)}
                 {loading && <button className="btn btn-primary w-1/4" type="button" disabled><span className="loading loading-spinner loading-md"></span></button>}
+                {!loading && newUsername === "" && <button className="btn btn-primary w-1/4" type="button" disabled>Ubah</button>}
             </form>
         </div>
     </>

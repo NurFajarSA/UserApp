@@ -1,10 +1,13 @@
 import { Role } from "@/app/models/role";
 import { User } from "@/app/models/user";
 import { getUserById } from "@/app/services/userService";
-import { getUserId } from "@/app/utils/cookies";
 import React, { useEffect, useState } from 'react';
 
-const UserDetailCard: React.FC = () => {
+interface UserDetailCardProps {
+    id: string;
+}
+
+const UserDetailCard: React.FC<UserDetailCardProps> = ({ id }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -12,7 +15,6 @@ const UserDetailCard: React.FC = () => {
         const fetchUser = async () => {
             setLoading(true);
             try {
-                const id = getUserId() as string;
                 const response = await getUserById(id);
                 if (response) {
                     setUser(response);

@@ -18,15 +18,11 @@ const UserTable: React.FC = () => {
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
     const router = useRouter();
 
-
-
     useEffect(() => {
         const newIndexOfLastUser = currentPage * usersPerPage;
         const newIndexOfFirstUser = newIndexOfLastUser - usersPerPage;
         setCurrentUsers(filteredUsers.slice(newIndexOfFirstUser, newIndexOfLastUser));
     }, [currentPage, filteredUsers, usersPerPage]);
-
-
 
     const fetchUsers = useCallback(async () => {
         setIsLoading(true);
@@ -49,7 +45,7 @@ const UserTable: React.FC = () => {
     }, [fetchUsers]);
 
     const handleDetailClick = (user: User) => {
-        router.push(Routes.USER_DETAIL.replace(':id', user.id));
+        router.push(Routes.USER_DETAIL.replace('{id}', user.id));
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {

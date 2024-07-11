@@ -5,16 +5,17 @@ import { Routes } from "@/app/routes/routes";
 import { getUserRole } from "@/app/utils/cookies";
 import withAuth from "@/app/utils/withAuth";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function UsersPage() {
-    const role = getUserRole();
+    const [role, setRole] = useState<string>(getUserRole()||"");
     const router = useRouter();
+    
     useEffect(() => {
         if (role !== Role.ADMIN) {
             router.replace(Routes.DASHBOARD);
         }
-    }, [role, router]);
+    }, []);
 
     return (
         <main>

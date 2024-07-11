@@ -1,5 +1,5 @@
 import Layout from "@/app/components/common/layout";
-import { getUserRole } from "@/app/utils/cookies";
+import { getUserId, getUserRole } from "@/app/utils/cookies";
 import withAuth from "@/app/utils/withAuth";
 import { Role } from "@/app/models/role";
 import UserDetailCard from "@/app/components/user-detail-card";
@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 import { getTotalAdmins, getTotalLoginAttempts, getTotalUsers } from "@/app/services/dashboardService";
 
 function DashboardPage() {
-    const userRole = getUserRole();
+    const [userRole, setUserRole] = useState<string>();
+    const [id, setId] = useState<string>(getUserId()||"");
+    useEffect(() => {
+        setUserRole(getUserRole());
+    }, []);
     if (userRole === Role.ADMIN) {
         return (
             <Layout title="Dashboard">
@@ -24,7 +28,7 @@ function DashboardPage() {
         return (
             <Layout title="Dashboard">
                 <div className="min-h-standard">
-                    <UserDetailCard />
+                    <UserDetailCard id={id||""} />
                 </div>
             </Layout>
         );
@@ -36,15 +40,14 @@ function DashboardPage() {
 export default withAuth(DashboardPage);
 
 const StatisticCard = () => {
-    const [totalUser, setTotalUser] = useState(0);
-    const [totalAdmin, setTotalAdmin] = useState(0);
-    const [totalLoginAttempt, setTotalLoginAttempt] = useState(0);
-    const [loading, setLoading] = useState(true);
+    const [totalUser, setTotalUser] = useState();
+    const [totalAdmin, setTotalAdmin] = useState();
+    const [totalLoginAttempt, setTotalLoginAttempt] = useState();
+    const [loading, setLoading] = useState<boolean>();
     const [error, setError] = useState(false);
 
     const fetchData = async () => {
         setLoading(true);
-
         try {
             const totalUser = await getTotalUsers();
             setTotalUser(totalUser);
@@ -69,24 +72,24 @@ const StatisticCard = () => {
         <>
             <div className="my-card flex items-center justify-between">
                 <div>
-                    <h3 className="text-md font-medium">Jumlah Pengguna</h3>
-                    {loading ? <span className="loading loading-bars loading-lg"></span> : <p className="text-4xl font-bold text-gray-800">{totalUser}</p>}
+                    <div className="text-md font-medium">Jumlah Pengguna</div>
+                    {loading ? <span className="loading loading-bars loading-md"></span> : <p className="text-4xl font-bold text-gray-800">{totalUser}</p>}
                     {error && <p className="text-red-500">Gagal memuat data</p>}
                 </div>
                 <span className="material-icons-outlined text-4xl text-gray-800 mr-4">people</span>
             </div>
             <div className="my-card flex items-center justify-between">
                 <div>
-                    <h3 className="text-md font-medium">Jumlah Admin</h3>
-                    {loading ? <span className="loading loading-bars loading-lg"></span> : <p className="text-4xl font-bold text-gray-800">{totalAdmin}</p>}
+                    <div className="text-md font-medium">Jumlah Admin</div>
+                    {loading ? <span className="loading loading-bars loading-md"></span> : <p className="text-4xl font-bold text-gray-800">{totalAdmin}</p>}
                     {error && <p className="text-red-500">Gagal memuat data</p>}
                 </div>
-                <span className="material-icons-outlined text-4xl text-gray-800 mr-4">admin_panel_settings</span>
+                <div className="material-icons-outlined text-4xl text-gray-800 mr-4">admin_panel_settings</div>
             </div>
             <div className="my-card flex items-center justify-between">
                 <div>
-                    <h3 className="text-md font-medium">Total Percobaan Login</h3>
-                    {loading ? <span className="loading loading-bars loading-lg"></span> : <p className="text-4xl font-bold text-gray-800">{totalLoginAttempt}</p>}
+                    <div className="text-md font-medium">Total Percobaan Login</div>
+                    {loading ? <span className="loading loading-bars loading-md"></span> : <p className="text-4xl font-bold text-gray-800">{totalLoginAttempt}</p>}
                     {error && <p className="text-red-500">Gagal memuat data</p>}
                 </div>
                 <span className="material-icons-outlined text-4xl text-gray-800 mr-4">login</span>

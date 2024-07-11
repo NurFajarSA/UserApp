@@ -6,7 +6,7 @@ import { getToken, getUserId } from "../utils/cookies";
 export const getAllUsers = async () => {
     try {
         const token = "Bearer " + getToken();
-        const response = await fetch(BASE_URL + '/user/all', {
+        const response = await fetch(BASE_URL + '/users', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export const getUserById = async (id: string) => {
     }
 }
 
-export const updateUsername = async (username: string) => {
+export const updateUsername = async (username: string, id:string) => {
     try {
         const token = "Bearer " + getToken();
         const response = await fetch(BASE_URL + '/users', {
@@ -61,7 +61,7 @@ export const updateUsername = async (username: string) => {
                 'Authorization': token,
             },
             body: JSON.stringify({
-                id: getUserId(),
+                id: id,
                 username: username,
             }),
         });

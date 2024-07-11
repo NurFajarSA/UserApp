@@ -27,7 +27,10 @@ const AdminRegisterForm: React.FC = () => {
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         setLoading(true);
         e.preventDefault();
-        if (!validateForm()) return;
+        if (!validateForm()) {
+            setLoading(false)
+            return
+        }
         try {
             const response = await register({
                 username,
