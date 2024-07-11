@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Role } from '@/app/models/role';
 import Alert from '../../common/alert';
 import { Routes } from '@/app/routes/routes';
+import { register } from '@/app/services/authService';
 
 const AdminRegisterForm: React.FC = () => {
     const router = useRouter();
@@ -12,8 +13,9 @@ const AdminRegisterForm: React.FC = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showAlert, setShowAlert] = useState(false);
-    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); 
     const [alertMessage, setAlertMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
         setShowAlert(true);
@@ -22,14 +24,28 @@ const AdminRegisterForm: React.FC = () => {
         setTimeout(() => setShowAlert(false), 3000);
     };
 
-    const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         e.preventDefault();
         if (!validateForm()) return;
-
-        showAlertMessage('Registrasi berhasil', 'success');
-        setTimeout(() => {
-            router.replace(Routes.USERS);
-        }, 1500);
+        try {
+            const response = await register({
+                username,
+                email,
+                password,
+                role
+            });
+            if (response) {
+                showAlertMessage('Registrasi berhasil', 'success');
+                setTimeout(() => {
+                    router.replace(Routes.USERS);
+                }, 1500);
+            }
+        } catch (error: any) {
+            showAlertMessage(error, 'error');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const validateForm = () => {
@@ -123,7 +139,8 @@ const AdminRegisterForm: React.FC = () => {
                     />
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary" type="submit">Daftar</button>
+                    {!loading && <button className="btn btn-primary" type="submit">Daftar</button>}
+                    {loading && <button className="btn btn-primary" type="submit" disabled><span className="loading loading-spinner loading-sm"></span></button>}
                 </div>
             </form>
         </>

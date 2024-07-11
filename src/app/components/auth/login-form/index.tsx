@@ -12,6 +12,7 @@ const LoginForm: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
   const [alertMessage, setAlertMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
     setShowAlert(true);
@@ -21,6 +22,7 @@ const LoginForm: React.FC = () => {
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     if (!validateForm()) return;
     try {
@@ -38,6 +40,8 @@ const LoginForm: React.FC = () => {
 
     } catch (error: any) {
       showAlertMessage(error, 'error');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,7 +88,8 @@ const LoginForm: React.FC = () => {
           />
         </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary" type="submit">Masuk</button>
+          {!loading && <button className="btn btn-primary" type="submit">Masuk</button>}
+          {loading && <button className="btn btn-primary" type="submit" disabled><span className="loading loading-spinner loading-sm"></span></button>}
         </div>
         <div className="divider">Belum punya akun?</div>
         <div className="form-control">

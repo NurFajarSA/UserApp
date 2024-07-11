@@ -27,11 +27,13 @@ const UserDetailCard: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div className="flex justify-center items-center">Loading...</div>;
+        return <div className="flex justify-center items-center"><span className="loading loading-spinner loading-md"></span></div>;
     }
 
     if (!user) {
-        return <div>Data not found</div>;
+        return <div className="flex justify-center items-center">
+            <span className="text-red-500">Data Pengguna tidak ditemukan</span>
+        </div>;
     }
 
     return (

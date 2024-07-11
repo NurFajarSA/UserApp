@@ -50,7 +50,6 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({ title, children }) =
                             </div>
                         </div>
                         {children}
-
                     </div>
                 </div>
             </Drawer>

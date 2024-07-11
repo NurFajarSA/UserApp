@@ -15,6 +15,7 @@ const RegisterForm: React.FC = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); // [1
     const [alertMessage, setAlertMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
         setShowAlert(true);
@@ -24,6 +25,7 @@ const RegisterForm: React.FC = () => {
     };
 
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         e.preventDefault();
         if (!validateForm()) return;
         try {
@@ -41,8 +43,10 @@ const RegisterForm: React.FC = () => {
                     router.push(Routes.LOGIN);
                 }, 1500);
             }
-        } catch (error : any) {
+        } catch (error: any) {
             showAlertMessage(error, 'error');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -123,7 +127,8 @@ const RegisterForm: React.FC = () => {
                     />
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary" type="submit">Daftar</button>
+                    {!loading && <button className="btn btn-primary" type="submit">Daftar</button>}
+                    {loading && <button className="btn btn-primary" type="submit" disabled><span className="loading loading-spinner loading-sm"></span></button>}
                 </div>
                 <div className="divider">Sudah punya akun?</div>
                 <div className="form-control">

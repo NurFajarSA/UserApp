@@ -14,9 +14,15 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
     const [modal, setModal]: any = useState(null);
     const [showAlert, setShowAlert] = useState(false);
-    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error'); 
+    const [alertType, setAlertType] = useState<'success' | 'error' | 'warning' | 'info'>('error');
     const [alertMessage, setAlertMessage] = useState('');
     const router = useRouter();
+    const role = getUserRole();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const showAlertMessage = (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'error') => {
         setShowAlert(true);
@@ -75,9 +81,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggleDrawer }) => {
             </div>
             <div className="navbar-end">
 
-            <span className={`badge badge-l ${ getUserRole() == Role.ADMIN ? 'badge-info' : 'badge-warning'} center p-2.5`}>
-                {getUserRole()}
-            </span>
+                <span className={`badge badge-l ${role == Role.ADMIN ? 'badge-info' : 'badge-warning'} center p-2.5`}>
+                    {isMounted ? role : <div className="loading loading-bars loading-sm"></div>}
+                </span>
 
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">

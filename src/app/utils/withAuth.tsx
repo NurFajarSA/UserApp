@@ -12,10 +12,9 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
             if (!token) {
                 router.push(Routes.LOGIN);
             }
-        }, [token, router]);
+        }, [token]);
 
-        // Render the component only if user is authenticated
-        return token ? <WrappedComponent {...props} /> : null;
+        return <WrappedComponent {...props} />;
     };
 
     return Wrapper;
